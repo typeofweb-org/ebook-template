@@ -1,0 +1,23 @@
+---
+author: Michał Miszczyszyn
+publisher: Type of Web
+date: c431c7a
+copyright:
+  owner: Michał Miszczyszyn
+  year: 2020
+lang: pl-PL
+language: pl-PL
+numbersections: yes
+documentclass: scrbook
+papersize: b5
+geometry: b5paper
+fontsize: 10pt
+mainfont: Merriweather
+monofont: Fira Mono
+indent: yes
+genre: reference
+cover-image: chapters/pictures/cover.jpg
+ibooks:
+  version: c431c7a
+  specified-fonts: true
+---

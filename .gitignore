@@ -1,0 +1,5 @@
+.DS_Store
+*.log
+out
+add-headers/node_modules
+node_modules

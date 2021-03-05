@@ -1,0 +1,20 @@
+{
+  "name": "add-headers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/bluebird": "3.5.32",
+    "@types/node": "14",
+    "adm-zip": "0.4.16",
+    "bluebird": "3.7.2",
+    "ts-node": "8.10.2",
+    "typescript": "4.0.0-dev.20200722"
+  },
+  "devDependencies": {
+    "@types/jest": "26.0.5",
+    "jest": "26.1.0",
+    "prettier": "2.0.5",
+    "ts-jest": "26.1.3"
+  }
+}

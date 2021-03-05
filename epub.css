@@ -1,0 +1,231 @@
+/* This defines styles and classes used in the book */
+body {
+  margin: 5%;
+  text-align: justify;
+  font-size: medium;
+}
+code {
+  font-family: monospace;
+}
+h1 {
+  text-align: left;
+}
+h2 {
+  text-align: left;
+}
+h3 {
+  text-align: left;
+}
+h4 {
+  text-align: left;
+}
+h5 {
+  text-align: left;
+}
+h6 {
+  text-align: left;
+}
+h1.title {
+}
+h2.author {
+}
+h3.date {
+}
+nav#toc ol,
+nav#landmarks ol {
+  padding: 0;
+  margin-left: 1em;
+}
+nav#toc ol li,
+nav#landmarks ol li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+a.footnote-ref {
+  vertical-align: super;
+}
+em,
+em em em,
+em em em em em {
+  font-style: italic;
+}
+em em,
+em em em em {
+  font-style: normal;
+}
+code {
+  white-space: pre-wrap;
+}
+span.smallcaps {
+  font-variant: small-caps;
+}
+span.underline {
+  text-decoration: underline;
+}
+q {
+  quotes: "„" "”" "»" "«";
+}
+div.column {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+}
+div.hanging-indent {
+  margin-left: 1.5em;
+  text-indent: -1.5em;
+}
+
+/* custom styles */
+body, p, h1, h2, h3 {
+  font-family: Merriweather, Georgia, serif;
+}
+
+body, p {
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+p {
+  text-indent: +2em;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  word-wrap: break-word;
+  margin-bottom: 0.5em;
+}
+
+@media (min-device-width: 600px) and (min-device-height: 600px) {
+  p {
+    text-align: justify;
+    hyphens: auto;
+  }
+}
+
+blockquote p {
+  text-indent: 0;
+  text-align: left;
+  hyphens: none;
+}
+
+.footnotes p {
+  text-indent: 0.5em;
+}
+
+code {
+  font-family: "Fira Mono", monospace;
+  font-size: inherit;
+}
+
+li code, p code, div.left.digression p {
+  background-color: #F4F4F4;
+  display: inline-block;
+  padding: 0 5pt;
+  text-indent: 0;
+}
+
+li code, p code {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+div.left p {
+  margin-top: 1em;
+  text-indent: 0;
+  text-align: left;
+  padding: 5pt;
+}
+
+div.left.digression p {
+  border: 1px solid black;
+}
+
+div.center p {
+  margin-top: 1em;
+  text-indent: 0;
+  text-align: center;
+}
+
+div.right p {
+  margin-top: 1em;
+  text-indent: 0;
+  text-align: right;
+}
+
+#toc {
+  text-align: left;
+  line-height: 1.6;
+}
+
+#toc a {
+  color: #5AB783;
+}
+
+.toc .toc {
+  margin-bottom: 1em;
+}
+
+.section-header-number::after {
+  content: "\00a0\00a0";
+}
+
+.level1 > h1 {
+  text-align: center;
+  margin-bottom: 2em;
+  font-size: 175%;
+}
+.level1 > h1 .header-section-number {
+  display: block;
+  font-size: 175%;
+}
+
+h1, h2, h3, h4 {
+  hyphens: none;
+}
+
+.rights {
+  hyphens: none;
+  text-align: left;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/Merriweather-Bold.otf");
+}
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Merriweather-Regular.otf");
+}
+@font-face {
+  font-family: "Merriweather";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/Merriweather-Italic.otf");
+}
+@font-face {
+  font-family: "Merriweather";
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/Merriweather-BoldItalic.otf");
+}
+@font-face {
+  font-family: "FiraMono";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/FiraMono-Regular.otf");
+}
+@font-face {
+  font-family: "FiraMono";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/FiraMono-Medium.otf");
+}
