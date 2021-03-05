@@ -1,0 +1,10 @@
+{
+  "editor.rulers": [
+    53
+  ],
+  "prettier.printWidth": 53,
+  "files.associations": {
+    "*.latex": "latex"
+  },
+  "python.pythonPath": "/usr/local/bin/python3"
+}

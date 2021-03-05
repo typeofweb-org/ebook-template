@@ -1,0 +1,41 @@
+name: Build book
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Bump version and push tag
+      id: create_tag
+      uses: anothrNick/github-tag-action@530174accd51538b8a8fa70e6a67cac2ed3ba597
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: false
+        DEFAULT_BUMP: minor
+        RELEASE_BRANCHES: main
+
+    - uses: actions/checkout@v2
+    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+    - name: Build the Docker image
+      run: ./docker-build.sh
+
+    - name: Upload PDF
+      id: upload-pdf
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.create_tag.outputs.new_tag }}
+        files: |
+          ./out/ebook_title-author_name.pdf
+          ./out/ebook_title-author_name.epub
+          ./out/ebook_title-author_name.mobi
+          ./out/ebook_title-author_name.docx

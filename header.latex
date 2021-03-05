@@ -1,0 +1,160 @@
+\geometry{
+  b5paper,
+  layout=b5paper,
+  layoutwidth=165mm,
+  layoutheight=240mm, % typical book size
+  paperwidth=165mm,
+  paperheight=240mm, % typical book size
+  left=25.0mm,
+  right=20.0mm,
+  bottom=25.4mm,
+  top=25.4mm,
+  % layouthoffset=22.5mm,
+  % layoutvoffset=28.5mm,
+  twoside,
+  showcrop,
+  % showframe,
+}
+
+\makeatletter
+\def\thanks#1{\protected@xdef\@thanks{\@thanks
+        \protect\footnotetext{#1}}}
+\makeatother
+
+\usepackage[autostyle=true]{csquotes}
+\DeclareQuoteAlias{dutch}{polish}
+\defaultfontfeatures{Mapping=tex-text}
+\usepackage{polski}
+
+
+\addtokomafont{disposition}{\rmfamily}
+% \newfontfamily{\headerSansFont}{Merriweather Sans}
+% \addtokomafont{disposition}{\headerSansFont}
+
+\usepackage{indentfirst}
+\setlength\parindent{24pt}
+\setlength{\parskip}{0pt}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\makeatletter
+  \def\verbatim@nolig@list{}
+\makeatother
+
+\usepackage{titletoc}
+\dottedcontents{section}[4.5em]{}{3em}{0.75em}
+
+\usepackage{newunicodechar}
+\newfontfamily{\fallbackMonoFont}{FreeMono}[Scale=MatchLowercase]
+\DeclareTextFontCommand{\testFallbackMono}{\fallbackMonoFont}
+
+\newfontfamily{\fallbackSansFont}{DejaVu Sans}
+\DeclareTextFontCommand{\textFallbackSans}{\fallbackSansFont}
+
+\newunicodechar{≼}{\testFallbackMono{≼}}
+\newunicodechar{💸}{\testFallbackMono{💸}}
+\newunicodechar{⊥}{\testFallbackMono{⊥}}
+\newunicodechar{✖}{\textFallbackSans{✖}}
+\newunicodechar{✔}{\textFallbackSans{✔}}
+\newunicodechar{►}{\textFallbackSans{►}}
+
+\widowpenalty10000
+\clubpenalty10000
+\usepackage[all]{nowidow}
+
+% Prevent hyphenation in \texttt words
+% Add background to \texttt words
+\let\temptt\texttt
+\definecolor{bgcolor}{HTML}{F4F4F4}
+% \renewcommand\texttt[1]{\mbox{\colorbox{bgcolor}{\temptt{#1}}}}
+\renewcommand\texttt[1]{\mbox{\temptt{#1}}}
+
+\usepackage[most]{tcolorbox}
+
+% chapter title margins
+\RedeclareSectionCommand[
+  afterskip=5\baselineskip,
+]{chapter}
+% line break after chapter title
+\renewcommand\chapterlinesformat[3]{\ifstr{#2}{}{}{{\fontsize{50pt}{1} \selectfont \hspace{10pt} #2}\\}#3}
+% center chapter title
+\renewcommand\raggedchapter{\centering}
+
+% space after footnote number
+\deffootnote[1em]{1.5em}{1em}{\textsuperscript{\thefootnotemark}\ \ }
+
+
+% pandoc-secnos: required package
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+
+% indeks
+% \usepackage[makeindex]{imakeidx}
+% \usepackage{multind}
+% \makeindex[intoc, title=General Index, columns=2]
+
+\usepackage[export]{adjustbox}
+
+% \newgeometry{top=0mm, bottom=0mm, left=0mm, right=0mm} \noindent\makebox[\textwidth]{\includegraphics[width=165mm,left]{./chapters/pictures/cover.jpg}} \restoregeometry
+
+\let\oldchapter\chapter
+\RenewDocumentCommand{\chapter}{s m}{
+  \IfBooleanTF#1
+    {\oldchapter*{#2}\markboth{#2}{#2}}
+    {\oldchapter{#2}}
+}
+
+% \usepackage{chngcntr}
+% \counterwithout{footnote}{chapter}
+
+% continuous numbering of footnotes
+\makeatletter
+  \@removefromreset{footnote}{chapter}
+\makeatother
+
+% strona 3
+\uppertitleback{
+
+\begin{flushleft}
+Projekt okładki: …\\
+Redaktor merytoryczny: …\\
+Redaktorka prowadząca: …\\
+Sugestie merytoryczne: …\\
+etc…
+
+\end{flushleft}}
+
+
+\lowertitleback{
+
+\begin{flushleft}
+
+\noindent Książka, którą nabyłeś, jest dziełem twórcy i wydawcy. Prosimy, abyś~przestrzegał praw, jakie im przysługują. Jej zawartość możesz udostępnić nieodpłatnie osobom bliskim lub osobiście znanym. Ale nie publikuj jej w internecie. Jeśli cytujesz jej fragmenty, nie zmieniaj ich treści i koniecznie zaznacz, czyje to dzieło. A kopiując ją, rób to jedynie na użytek osobisty.\\
+Szanujmy cudzą własność i prawo!\\
+\textit{Polska Izba Książki}\\
+Więcej o prawie autorskim na www.legalnakultura.pl\\[\baselineskip]
+
+Wszystkie znaki występujące w tekście są zastrzeżonymi znakami firmowymi bądź towarowymi ich właścicieli.\\[\baselineskip]
+
+\textit{TypeScript na poważnie}\\
+https://typescriptnapowaznie.pl \\
+Copyright © Michał Miszczyszyn\\
+ISBN e-book EPUB: 978-83-957363-0-8\\
+ISBN e-book MOBI: 978-83-957363-1-5\\
+ISBN e-book PDF: 978-83-957363-2-2\\
+ISBN druk: 978-83-957363-3-9\\[\baselineskip]
+
+Wydanie I\\
+Gdańsk 2020\\[\baselineskip]
+
+Wydawnictwo Type of Web\\
+e-mail: …\\
+www: https://typeofweb.com
+
+\end{flushleft}}
+
+% strona 4 i 5 (pusta)
+\dedication{Dla mojej żony, Martyny}
+
+\publishers{\vspace{8cm}\includegraphics[width=7cm]{./chapters/pictures/logo.png}}
