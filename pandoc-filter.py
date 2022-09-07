@@ -26,11 +26,11 @@ See http://scorreia.com/software/panflute/ and
 https://github.com/jgm/pandoc/wiki/Pandoc-Filters
 """
 
-import sys
 from panflute import *
-import os
 from itertools import dropwhile, takewhile
 from typing import Pattern, Match, Any, List, Generic, TypeVar, Optional
+import sys
+import os
 import re
 
 # Need the lib module. Make sure it can be found.
@@ -50,7 +50,6 @@ CENTER_JUSTIFY = '{-}'
 RIGHT_JUSTIFY = '{>}'
 DIGRESSION = '{|}'
 
-AUTHOR_PAT = re.compile(r'^(.*)%author%(.*)$')
 TITLE_PAT = re.compile(r'^(.*)%title%(.*)$')
 SUBTITLE_PAT = re.compile(r'^(.*)%subtitle%(.*)$')
 COPYRIGHT_OWNER_PAT = re.compile(r'^(.*)%copyright-owner%(.*)$')
@@ -360,14 +359,14 @@ def section_sep(elem: Element, format: str) -> Element:
     else:
         return elem
 
-def remove_prettier_ignore(elem: CodeBlock, doc: Any) -> CodeBlock:
+def remove_prettier_ignore(elem: CodeBlock, doc: Doc) -> CodeBlock:
     assert isinstance(elem, CodeBlock)
 
     elem.text = elem.text.replace('// prettier-ignore', '')
 
     return elem
 
-def substitute_any_metadata(elem: Element, doc: Any) -> Element:
+def substitute_any_metadata(elem: Element, doc: Doc) -> Element:
     """
     Checks a string to determine whether it matches one of the SIMPLE_PATTERNS
     metadata keys, updating the element by substituting the appropriate
@@ -412,19 +411,6 @@ def newpage(format: str) -> List[Element]:
         return []
 
 
-def prepare(doc: Doc):
-    """
-    Filter initialization.
-
-    Parameters:
-
-    doc: the Document object
-    """
-    # Validate the metadata
-    # validate_metadata(doc.get_metadata())
-    ()
-
-
 def transform(elem: Element, doc: Doc) -> Element:
     """
     The guts of the filter.
@@ -450,9 +436,6 @@ def transform(elem: Element, doc: Doc) -> Element:
                 new_elem = Div(*new_elements)
         return new_elem
 
-    elif paragraph_contains_child(elem, '%newpage%'):
-        abort('%newpage% is no longer supported.')
-
     elif paragraph_starts_with_child(elem, LEFT_JUSTIFY):
         return left_justify_paragraph(elem, doc.format)
 
@@ -471,19 +454,6 @@ def transform(elem: Element, doc: Doc) -> Element:
     elif isinstance(elem, CodeBlock):
         return remove_prettier_ignore(elem, doc)
 
-    elif data.set(matches_pattern(elem, AUTHOR_PAT)):
-        authors = doc.get_metadata('author', [])
-        m = data.get()
-        author_str = ""
-        for i, a in enumerate(authors):
-            sep = ", " if i < (len(authors) - 1) else " and "
-            if i > 0:
-                author_str = f"{author_str}{sep}{a}"
-            else:
-                author_str = a
-
-        return Str(f"{m.group(1)}{author_str}{m.group(2)}")
-
     elif isinstance(elem, Str):
         return substitute_any_metadata(elem, doc)
 
@@ -492,7 +462,7 @@ def transform(elem: Element, doc: Doc) -> Element:
 
 
 def main(doc: Optional[Doc] = None):
-    return run_filter(transform, prepare=prepare, doc=doc)
+    return run_filter(transform, doc=doc)
 
 
 if __name__ == "__main__":

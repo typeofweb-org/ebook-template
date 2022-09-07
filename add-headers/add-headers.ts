@@ -1,14 +1,9 @@
-import * as Fs from "fs";
+import * as Fsp from "fs/promises";
 import * as Path from "path";
-import { promisify } from "util";
 import Bluebird from "bluebird";
 import * as Prettier from "prettier";
 
 const CHAPTERS_DIR = Path.join("..", "chapters");
-
-const readdirAsync = promisify(Fs.readdir);
-const readFileAsync = promisify(Fs.readFile);
-const writeFileAsync = promisify(Fs.writeFile);
 
 const hasID = (params: Params): boolean => {
   return Object.keys(params).some((key) =>
@@ -70,7 +65,7 @@ export const addIdToLine = (
 };
 
 export const run = async () => {
-  const files = await readdirAsync(CHAPTERS_DIR);
+  const files = await Fsp.readdir(CHAPTERS_DIR);
 
   const mdFilePaths = files
     .filter(
@@ -78,10 +73,10 @@ export const run = async () => {
     )
     .map((f) => Path.join(CHAPTERS_DIR, f));
 
-  Bluebird.map(mdFilePaths, async (path) => {
+  await Bluebird.map(mdFilePaths, async (path) => {
     console.log(`Processing ${path}.`);
     return {
-      text: await readFileAsync(path, "utf-8"),
+      text: await Fsp.readFile(path, "utf-8"),
       path: path,
     };
   })
@@ -106,20 +101,36 @@ export const run = async () => {
         2: code,
         index,
       } of text.matchAll(
-        /^```(ts|js)\n([\s\S]+?)\n```$/gm
+        /^```(\w{1,4})\n([\s\S]+?)\n```$/gm
       )) {
         let formatted = code;
         try {
-          formatted = Prettier.format(code, {
-            parser:
-              lang === "ts" ? "typescript" : "babel",
-            printWidth: 53,
-            tabWidth: 2,
-            proseWrap: "preserve",
-            trailingComma: "all",
-            arrowParens: "always",
-            endOfLine: "lf",
-          });
+          if (
+            lang !== "ts" &&
+            lang !== "jsx" &&
+            lang !== "bash" &&
+            lang !== "json"
+          ) {
+            console.warn(
+              `Unrecognized lang: ${lang} in ${path}`
+            );
+            formatted = code;
+          } else {
+            formatted = Prettier.format(code, {
+              parser:
+                lang === "ts"
+                  ? "typescript"
+                  : lang === "json"
+                  ? "json"
+                  : "babel",
+              printWidth: 53,
+              tabWidth: 2,
+              proseWrap: "preserve",
+              trailingComma: "all",
+              arrowParens: "always",
+              endOfLine: "lf",
+            });
+          }
         } catch (err) {
           // console.error(err);
         }
@@ -158,7 +169,7 @@ export const run = async () => {
       return { text: result, path };
     })
     .map(({ text, path }) => {
-      return writeFileAsync(path, text, "utf-8");
+      return Fsp.writeFile(path, text, "utf-8");
     });
 };
 
@@ -204,4 +215,4 @@ export function paramsToString(
   );
 }
 
-run()
+run();

@@ -50,4 +50,4 @@ const generateEbookForEpub = async (filePath) => {
   await writeZipFile(zip, filePath);
 }
 
-generateEbookForEpub('../out/ebook_title-author_name.epub')
+generateEbookForEpub('../out/React_TypeScript_Nextjs-Michal_Miszczyszyn-Michal_Miszczyszyn.epub')

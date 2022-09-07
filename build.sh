@@ -69,7 +69,7 @@ do
 
   if [[ "$format" == "epub" ]]; then
     cd add-headers
-    npm install --production
+    npm ci --legacy-peer-deps --production
     node fix-epub-css.js
     cd ..
   fi
